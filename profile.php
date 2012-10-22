@@ -35,6 +35,7 @@ else { print '<meta http-equiv="REFRESH" content="0;url=http://www.cosmicpolygon
 // zzz is one of the acceptable action commands (see documentation)
 // www is any necessary information for that action command
 //
+//start of curl method to get information
 function askexchange($getstring)
 {
 	//$targetURL="localhost:8888/startup/exchange.php"; // used during development
@@ -59,6 +60,7 @@ function askexchange($getstring)
     $outputobject = curl_exec($ch); 
 	return $outputobject;
 } // end askexchange
+//end of curl method
 
 #logprint:
 ///logprint: The basic diagnostic tool
