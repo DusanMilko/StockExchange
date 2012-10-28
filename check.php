@@ -1,4 +1,5 @@
 <?php
+session_start();
 // This is a 'starter kit' and demonistration for how to
 // request information from Moshell's Exchange program.
 // You are authorized to use this function and these examples
@@ -87,6 +88,8 @@ if (($selector==$Testnumber) ||($selector<0))
 
 	$nm = stripcslashes($_GET['nm']);
 	$ps = stripcslashes($_GET['ps']);
+	$_SESSION['nm'] = $nm;
+	$_SESSION['ps'] = $ps;
 
 	$user1="login=".$nm."&password=".$ps;
 	
@@ -101,9 +104,9 @@ if (($selector==$Testnumber) ||($selector<0))
 <script>
 
 	if( $(".response responsecode").text() == "failed" ){
-		alert("fail");
+		//alert("fail");
 	}else{
-		window.location.href = "profile.php?nm=<?php echo $nm;?>&ps=<?php echo $ps;?>";
+		window.location.href = "profile.php";
 	}
 
 </script>

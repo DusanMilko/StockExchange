@@ -1,19 +1,52 @@
-body { width: 100%; 
-background: #cdeb8e; /* Old browsers */
-background: -moz-linear-gradient(top,  #cdeb8e 0%, #a5c956 100%); /* FF3.6+ */
-background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#cdeb8e), color-stop(100%,#a5c956)); /* Chrome,Safari4+ */
-background: -webkit-linear-gradient(top,  #cdeb8e 0%,#a5c956 100%); /* Chrome10+,Safari5.1+ */
-background: -o-linear-gradient(top,  #cdeb8e 0%,#a5c956 100%); /* Opera 11.10+ */
-background: -ms-linear-gradient(top,  #cdeb8e 0%,#a5c956 100%); /* IE10+ */
-background: linear-gradient(to bottom,  #cdeb8e 0%,#a5c956 100%); /* W3C */
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cdeb8e', endColorstr='#a5c956',GradientType=0 ); /* IE6-9 */
-}
-#login_cont { width: 100%; margin: 0 auto; max-width: 320px;}
-#login { float: left; width: 100%; padding: 0px 10px;}
-#login div { overflow: hidden; width: 100%; float: left; margin: 10px 0px 0px 0px;}
-#login label { cursor: text; float: left; position: absolute; color: #444; opacity: 0; margin: 14px 0px 0px 15px;}
-#login input { float: left; outline: none; border: none; background: #aaa; width: 100%; height: 20px; border-left: 10px solid #666; padding: 5px 0px 5px 5px; margin-bottom: 10px;}
-#login input:focus { border-left: 10px solid #00ffcc;}
+/* max width */
+#login_cont, .main_body { max-width: 480px;}
+.main_profile {  max-width: 460px;}
+
+/* Login style */
+a { color: #00ffcc; -webkit-tap-highlight-color: rgba(255, 255, 255, 0);}
+a:hover { color: #000;}
+.tabn a:hover { color: #fff;}
+body { background: url('imgs/wall4.png') repeat;}
+#login_cont { width: 100%; margin: 0 auto;}
+#login { float: left; width: auto; padding: 20px 10px 0px;}
+#login div { overflow: hidden; width: 100%; float: left; margin: 0px 0px 0px 0px;}
+#login label { font-size: 14px; cursor: text; float: left; position: absolute; color: #444; opacity: 0; margin: 11px 0px 0px 15px;}
+#login input { font-size: 14px; float: left; outline: none; border: none; background: #aaa; width: 100%; height: 20px; border-left: 10px solid #666; padding: 10px 0px 10px 5px; margin: 0px 0px 10px 0px; -webkit-focus-ring-color: none!important; -webkit-appearance: none!important;-webkit-box-flex: 1; -webkit-box-shadow: none; -webkit-border-radius: 0;-webkit-tap-highlight-color: rgba(255, 255, 255, 0); }
+#login input:focus { border-left: 10px solid #00ffcc; -webkit-focus-ring-color: none!important; -webkit-appearance: none!important;-webkit-box-flex: 1; -webkit-box-shadow: none; -webkit-border-radius: 0;-webkit-tap-highlight-color: rgba(255, 255, 255, 0); }
 #login input#send { width: 100%; float: left; background: #999; color: #fff; cursor: pointer; font-weight: bold; padding: 10px 20px; height: 50px;}
 #login input#send:hover { background: #666; border-left: 10px solid #00ffcc;}
-#login input{color: #bbb;}
+#login div#result { margin: 5px auto; }
+#login div.response { margin: 3px; background: #F7C7AC; width: 91%; padding: 8px 9px 8px 12px;}
+#login .loader { margin-left: 47%;}
+h1 { font-family: 'Alfa Slab One', cursive; margin-left: 10px; width: auto; font-size: auto;}
+
+/* Profile style */
+
+.main_body { overflow: hidden; width: 100%; margin: 0 auto;}
+.main_profile { width: auto; padding: 10px; float: right;}
+.main_body h1 { font-size: 31px; margin-left: 0px;}
+.bal { background: #fff; font-size: 18px; padding: 5px 10px; border-top: 1px solid #eee; border-bottom: 1px solid #eee;}
+
+/* Hidden tab */
+
+.tabn { color: #fff; float: left; width: 100%; background: url('imgs/use_your_illusion.png')#222;}
+.nav { float: right; width: 48px; border-left: 2px solid #313131; position: relative;}
+.nav a { width: 48px; height: 48px; float: left; background: #323232}
+.nav a.active { background: #00ffcc;}
+
+.logout { position: absolute; margin-left: -48px; bottom: 0;}
+
+.th_main { width: 100%; float: left; padding: 20px 0px 5px 10px;}
+.th_main exchange { font-size: 20px; padding-bottom: 5px; border-bottom: 2px solid #00ffcc; margin-bottom: 10px;}
+.th_main responsecode { display: none;}
+.th_main transactions { overflow: hidden; background: #333; width: 100%; float: left; margin-top: 10px;}
+.th_main exchange transaction { font-size: 11px; width: 100%; float: left; clear: both; font-size: 12px; border-top: 1px solid #444; padding: 0px;}
+.th_main transaction tid, .th_main transaction datime, .th_main transaction amount, .th_main transaction type, .th_main transaction note{ float: left; padding: 1px 4px;}
+.th_main transaction tid {padding: 1px 4px; background: #006f66; border: none;}
+.th_main transaction note { clear: both; border: none; margin: 5px 0px 0px 30px;}
+.th_main transaction amount { background: #555;}
+.th_main, .tf_main { overflow: hidden;}
+
+
+
+

@@ -1,3 +1,8 @@
+<?php
+session_start();
+if (isset($_SESSION['nm']) ) {}
+else { header("location: login.php"); }
+?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -11,13 +16,15 @@
 <link rel="stylesheet" href="http://panicpop.com/css/screen.css" type="text/css" media="screen" />
 <link rel="stylesheet" href="global.css" type="text/css" media="screen" />
 <script type="text/javascript" src="http://dusanmilko.com/js/jquery-1.7.2.min.js"></script>
+<link href='http://fonts.googleapis.com/css?family=Alfa+Slab+One' rel='stylesheet' type='text/css'>
 
 <?php
-if (isset($_GET['nm'])) {
-$nm = stripcslashes($_GET['nm']);
-$ps = stripcslashes($_GET['ps']);
-}
-else { print '<meta http-equiv="REFRESH" content="0;url=http://www.cosmicpolygon.com/exchange/login.php">'; }
+//if (isset($_SESSION['nm']) ) {}
+//else { print '<meta http-equiv="REFRESH" content="0;url=http://www.cosmicpolygon.com/exchange/login.php">'; }
+
+//echo $_SESSION['nm'];
+$nm = $_SESSION['nm'];
+$ps = $_SESSION['ps'];
 
 // This is a 'starter kit' and demonistration for how to
 // request information from Moshell's Exchange program.
@@ -35,7 +42,6 @@ else { print '<meta http-equiv="REFRESH" content="0;url=http://www.cosmicpolygon
 // zzz is one of the acceptable action commands (see documentation)
 // www is any necessary information for that action command
 //
-//start of curl method to get information
 function askexchange($getstring)
 {
 	//$targetURL="localhost:8888/startup/exchange.php"; // used during development
@@ -60,7 +66,6 @@ function askexchange($getstring)
     $outputobject = curl_exec($ch); 
 	return $outputobject;
 } // end askexchange
-//end of curl method
 
 #logprint:
 ///logprint: The basic diagnostic tool
@@ -111,27 +116,113 @@ if (($selector==$Testnumber) ||($selector<0))
 
 $user1="login=".$nm."&password=".$ps;
 
+//balances
 $gs="$user1&action=balances";
 $XMLresponse=askexchange($gs);
-
 $object1=simplexml_load_string ($XMLresponse);
 $responsecode=$object1->responsecode;
 $balances=$object1->balances;
 $bucks=$object1->balances->balance->amount; 
 
+//transaction history
+$th="$user1&action=transactions";
+$XMLresponseTH=askexchange($th);
+$object2=simplexml_load_string ($XMLresponseTH);
+$responsecode=$object2->responsecode;
+$tx=$object2->transactions;
+
 if( $responsecode == "ok" ){
 	
 }else {
-print '<meta http-equiv="REFRESH" content="0;url=http://www.cosmicpolygon.com/exchange/login.php">';	
+//print '<meta http-equiv="REFRESH" content="0;url=http://www.cosmicpolygon.com/exchange/login.php">';	
 }
 	
 ?>
 
 </head>
 <body id="body" >
+<div class="main_body">
+	
+	<div class="tabn">
+		
+		<div class="nav">
+			<a class="home active" href=""><img src="imgs/hm.png" /></a>
+			<a class="history" href=""><img src="imgs/hs.png" /></a>
+			<a class="transfer" href=""><img src="imgs/tf.png" /></a>
+			<a class="logout" href="login.php?status=loggedout"><img src="imgs/out.png" /></a>
+		</div>
+		<div class="th_main">
+			<?php echo $XMLresponseTH;?>
+		</div>
+		<div class="tf_main">
+			<h4>Transfer</h4>
+		</div>
+	</div>
+	<div class="main_profile">
+		<h1>The Exchange</h1>
+		<div class="bal">Balance: <?php echo $bucks; ?></div>
+	</div>
+</div>
 
-<div >
-<?php echo $bucks; ?>
+<script>
+$(document).ready(function(){
+	var tabw = $(".tabn").width();
+	$(".th_main").css("height", "0px");
+	$(".main_profile").css("width",tabw-70);
+	$(".th_main").css("width",tabw-70);
+	$(".tabn").css("margin-left",(tabw-50)*-1);
+	//$(".tabn").css("height",$(window).height());
+	$(".nav").css("height",$(window).height());
+});
+$(window).resize(function() {
+	var tabw = $(".tabn").width();
+	//$(".th_main").css("height", "0px");
+	$(".main_profile").css("width",tabw-72);
+	$(".th_main").css("width",tabw-70);
+	//$(".tabn").css("height",$(window).height());
+	if( $(".history").hasClass("active") ){
+		$(".nav").css("height",($(".th_main").height()+25));
+	}else{
+		$(".nav").css("height",$(window).height());
+	}
+	if( $(".home").hasClass("active") ){
+		$(".main_profile").stop().animate({"margin-right": "0px"}, "slow");
+		$(".tabn").css("margin-left",(tabw-50)*-1);
+	}
+});
+$(".home").click(function() {
+	var tabw = $(".tabn").width();
+	$(".nav").css("height",$(window).height());
+	$(".th_main").css("height", "0px");
+	$('.nav a').removeClass("active");
+	$(this).addClass("active");
+	$(".tabn").stop().animate({"margin-left": (tabw-50)*-1}, "slow");
+	$(".main_profile").stop().animate({"margin-right": "0px"}, "slow");
+	return false;
+});
+$(".history").click(function() {
+	var tabw = $(".tabn").width();
+	$('.nav a').removeClass("active");
+	$(this).addClass("active");
+	$(".th_main").css("height", "100%");
+	$(".tf_main").css("height", "0px");
+	$(".main_profile").stop().animate({"margin-right": tabw*-1}, "slow");
+	$(".tabn").stop().animate({"margin-left": "0px"}, "slow");
+	$(".nav").css("height",$(".th_main").height()+25);
+	return false;
+});
+$(".transfer").click(function() {
+	var tabw = $(".tabn").width();
+	$(".nav").css("height",$(window).height());
+	$(".th_main").css("height", "0px");
+	//$(".th_main").css("overflow", "hidden");
+	$('.nav a').removeClass("active");
+	$(this).addClass("active");
+	$(".main_profile").stop().animate({"margin-right": tabw*-1}, "slow");
+	$(".tabn").stop().animate({"margin-left": "0px"}, "slow");
+	return false;
+});
+</script>
 	
 </body>
 </html>
