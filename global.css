@@ -2,6 +2,8 @@
 #login_cont, .main_body { max-width: 480px;}
 .main_profile {  max-width: 460px;}
 
+.hid { display: none;}
+
 /* Login style */
 a { color: #00ffcc; -webkit-tap-highlight-color: rgba(255, 255, 255, 0);}
 a:hover { color: #000;}
@@ -46,7 +48,33 @@ h1 { font-family: 'Alfa Slab One', cursive; margin-left: 10px; width: auto; font
 .th_main transaction note { clear: both; border: none; margin: 5px 0px 0px 30px;}
 .th_main transaction amount { background: #555;}
 .th_main, .tf_main { overflow: hidden;}
+.tran a:hover { cursor: pointer;}
 
 
+.tf_main { float: left; }
+.tf_main .tran { width: 95%; margin: 10px 0px 0px 5%;}
+.tf_main h4 { color: #fff; font-size: 20px; padding-bottom: 5px; border-bottom: 2px solid #00ffcc; margin: 0px 0px 20px 15px;}
+.tf_main .action { width: 50%; text-align: center; padding: 10px 0px; background: #333; font-size: 16px; text-decoration: none; float: left; }
+.action.active { background: #444;}
+.tf_main .action.tsa { float: right;}
 
+.tbucks, .tstocks { width: 100%; float: left; background: #444; padding: 30px 0px 10px;}
+.amountTb, .amountTs {
+	width: 27%;
+	float: left;
+	margin-top: 8px;
+	padding-left: 20px;
+}
+.personTb, .personTs {
+	clear: left;
+	float: left;
+	margin-top: 20px;
+	margin-left: 20px;
+	width: 27%;
+}
+#bucksamount, #stocksamount  { float: left; width: 50%;}
+.personlistTb, .personlistTs { margin-top: 20px; width: 50%;}
+#sendbucks, #sendstocks { padding: 15px 0px; border: 0px; background: #0FC; font-weight: bold; margin: 20px 3% 0px; width: 94%;}
+
+.tbucks p, .tstocks p { margin: 0px 3% 10px; background: #222; width: 90%; padding: 2%;}
 

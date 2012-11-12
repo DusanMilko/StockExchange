@@ -122,8 +122,10 @@ $XMLresponse=askexchange($gs);
 $object1=simplexml_load_string ($XMLresponse);
 $responsecode=$object1->responsecode;
 $balances=$object1->balances;
-$bucks=$object1->balances->balance->amount; 
-
+$bucks = 0;
+if( $object1->balances->balance->type == "bucks" ){
+	$bucks=$object1->balances->balance->amount; 
+}
 //transaction history
 $th="$user1&action=transactions";
 $XMLresponseTH=askexchange($th);
@@ -137,6 +139,15 @@ if( $responsecode == "ok" ){
 //print '<meta http-equiv="REFRESH" content="0;url=http://www.cosmicpolygon.com/exchange/login.php">';	
 }
 	
+$usersuper="login=Passpartout07&password=sesame07";    
+$gs="$usersuper&action=userlist";       
+$XMLresponseList=askexchange($gs);
+
+//Parse list and generate drop down
+
+$gs="$user1&action=balances";    
+$XMLresponseSinfo=askexchange($gs);
+
 ?>
 
 </head>
@@ -156,11 +167,52 @@ if( $responsecode == "ok" ){
 		</div>
 		<div class="tf_main">
 			<h4>Transfer</h4>
+			<div class="tran">
+				<a class="action active tba" >Bucks</a><a class="action tsa" >Stocks</a>
+				<div class="tbucks trandiv">
+					<p>Transfer Bucks</p>
+					
+					<label class="amountTb" for="amount">Amount</label> <input type="text" name="amount" id="bucksamount" /> 
+					<label class="personTb" for="person">Transfer to:</label>
+					<select class="personlistTb">
+					  <option>Caesar</option>
+					  <option>Joe</option>
+					  <option>Bill</option>
+					</select>
+					
+					<input type="submit" id="sendbucks" value="Transfer Bucks" name="submit" />
+					
+					<div class="hid"><?php echo $XMLresponseList;?></div>
+				</div>
+				<div class="tstocks hid trandiv">
+					<p>Transfer Stocks</p>
+					
+					<label class="amountTs" for="amount">Amount</label> <input type="text" name="amount" id="stocksamount" /> 
+					
+					<label class="personTs" for="person">Stock type:</label>
+					<select class="personlistTs">
+					  <option>ROM</option>
+					  <option>APPE</option>
+					  <option>HP</option>
+					</select>
+					
+					<label class="personTs" for="person">Transfer to:</label>
+					<select class="personlistTs">
+					  <option>Caesar</option>
+					  <option>Joe</option>
+					  <option>Bill</option>
+					</select>
+					
+					<input type="submit" id="sendstocks" value="Transfer Stocks" name="submit" />
+					
+				</div>	
+			</div>
 		</div>
 	</div>
 	<div class="main_profile">
 		<h1>The Exchange</h1>
 		<div class="bal">Balance: <?php echo $bucks; ?></div>
+		<?php echo $XMLresponseSinfo;?>
 	</div>
 </div>
 
@@ -170,6 +222,7 @@ $(document).ready(function(){
 	$(".th_main").css("height", "0px");
 	$(".main_profile").css("width",tabw-70);
 	$(".th_main").css("width",tabw-70);
+	$(".tf_main").css("width",tabw-70);
 	$(".tabn").css("margin-left",(tabw-50)*-1);
 	//$(".tabn").css("height",$(window).height());
 	$(".nav").css("height",$(window).height());
@@ -215,6 +268,7 @@ $(".transfer").click(function() {
 	var tabw = $(".tabn").width();
 	$(".nav").css("height",$(window).height());
 	$(".th_main").css("height", "0px");
+	$(".tf_main").css("height", "100%");
 	//$(".th_main").css("overflow", "hidden");
 	$('.nav a').removeClass("active");
 	$(this).addClass("active");
@@ -222,6 +276,20 @@ $(".transfer").click(function() {
 	$(".tabn").stop().animate({"margin-left": "0px"}, "slow");
 	return false;
 });
+
+$(".tba").click(function() {
+	$('.action').removeClass("active");
+	$(this).addClass("active");
+	$(".trandiv").css("display", "none");
+	$(".tbucks").css("display", "block");
+});
+$(".tsa").click(function() {
+	$('.action').removeClass("active");
+	$(this).addClass("active");
+	$(".trandiv").css("display", "none");
+	$(".tstocks").css("display", "block");
+});
+
 </script>
 	
 </body>
