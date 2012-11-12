@@ -1,7 +1,9 @@
 <?php
 session_start();
-if ( $_GET['status'] == "loggedout" ) {
+if (isset($_GET['status']) ) {
+	if ( $_GET['status'] == "loggedout" ) {
 	session_destroy();
+	}
 }
 else{
 	if (isset($_SESSION['nm']) ) {
